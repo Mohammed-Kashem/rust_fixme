@@ -1,3 +1,11 @@
+/**
+Rust midterm extra credit fix me code.
+What we did is we used the Display format.
+We took the Display format that was made for city and adjusted it so we can display the color in the right format.
+What we did is we took the write! function to print out the red green blue and used self to get the u8.
+In the main function we adjucted the println to {} instead of using {:?}.
+*/
+
 use std::fmt::{self, Formatter, Display};
 
 /* Demonstrates printing of a user defined struct using println! macro.*/
@@ -29,6 +37,16 @@ struct Color {
     blue: u8,
 }
 
+//Added this part so we print the color in the right format.
+impl Display for Color {
+    // `f` is a buffer, this method must write the formatted string into it
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        //Customize so only 'red', 'green', and 'blue' are denoted.
+        write!(f, "red: {},green: {},blue: {}",
+               self.red, self.green, self.blue)
+    }
+}
+
 fn main() {
     for city in [
         City { name: "Glassboro", lat: 39.702892, lon: -75.111839 },
@@ -43,7 +61,7 @@ fn main() {
         Color { red: 0, green: 3, blue: 254 },
         Color { red: 0, green: 0, blue: 0 },
     ].iter() {
-        // Hint : Fix the code so you can print it using {}
-        println!("{:?}", *color);
+        // Fixed the code so we can use {} instead of {:?}
+        println!("{}", *color);
     }
 }
